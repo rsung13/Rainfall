@@ -1,0 +1,7 @@
+1.	We need to take a look at the binary with gdb:	info functions.
+2.	There is a list of functions that is used and we can see a part main and run:	disas main, disas run (set disassembly-flavor intel). The functions gets() used is known for its vulnerability as it takes an arguments (buffer of char*) which isn't checked for its size. So we can perform an attack by buffer-overflow.
+3.	Understand how the stack work:	https://beta.hackndo.com/buffer-overflow/
+4.	Upon understanding what function run() does, we can know buffer-overflow with gets() then put the adress of function run() in EIP in order to take advantage of system("/bin/sh").
+5.	echo -e <padding of 76 char><EIP_new adress> > <file>
+6.	cat <pathToFile> - | ./level1
+7.	We can now run cat /home/user/level2/.pass

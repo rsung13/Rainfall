@@ -1,0 +1,3 @@
+1.	On disas the binary we can see that there is a function 'o' and 'n'. We understand that we neeed to call function 'o' with a format string attack.
+2.	After the printf call in function 'n', the progran will exit(). We can modify the address of exit with the adress of function 'o' using the forma %n principle.
+3.	python -c 'print "<exitAddress_inLittleEndian>" + "<%functionO_addInIntp-4bytes> + "%<positionOf_argN>$n""'

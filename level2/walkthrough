@@ -1,0 +1,20 @@
+1.	On launching the executable, we get a prompt for input, and then we type something, it prints back.
+2.	Using gdb we get info about functions (p, main).
+3.	The main function calls p() function, in which calls this vulnerable gets() function, so we get the idea of buffer overflow attack on stack.
+4.	On restructuring source code, we see that in the p() function, it checks whether the EIP of p() function starts with '0xb...' to see if we tried buffer overflow.
+5.	By this we get a conclusion that we cannot simply call system() on modifying EIP since the address of the function starts with '0xb', which will read to the exit() call before the return to EIP.
+6.	Instead, we have to give some address which has 'ret' operation in it after the padding so that it can process to its next instruction, after getting around the address check part.
+7.	As the gets() function gets its buffer argument at the address of 76 bytes of offset from the EBP, we can know that the padding before the addresses should be 80 bytes(76 + EPB 4 bytes).
+8.	We get the address of ret of main
+	disassembly main
+9.	We get the address of system() function
+	'print &system'.
+10.	We set the address of EIP of system to any value of 4 bytes.
+11.	We get the address of litteral "/bin/sh"
+	'find &system, +99999999, "/bin/sh"'.
+12. We prepare payload:
+	echo -e [80 bytes][return address of main][address of system()][any value of 4 bytes][address of "/bin/sh"] > /tmp/exp
+13.	We launch the command
+	cat /tmp/exp - | ./level2
+14.	We get a sh prompt
+	cat /home/user/level3/.pass

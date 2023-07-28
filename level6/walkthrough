@@ -1,0 +1,8 @@
+1.	Upon inspecting the disassembled code, we notice that the program calls strcpy() function which is vulnerable to buffer overflow.
+2.	Also, with a function pointer, it calls the function 'm' which only prints out 'Nope' unconditionally.
+3.	We see the function 'n' that will show the pass word which is our goal, so we'll try to give the address of this function to this function pointer.
+4.	By the way, the two buffers used in the main() are all the result of malloc() function, which means that they resides in the heap memory.
+5.	In fact, with gdb we see that these addresses are way more lower than those on the stack.
+6. 	With this information, we understand that we can overwrite the value in the second buffer which is used as a function pointer.
+7.	We set breakpoints after two malloc() calls to know the addresses of two buffer, and we get the offset of 72 bytes between the addresses.
+8.	./level6 $(python -c 'print "A" * 72 + "[address of func n in little endian]")

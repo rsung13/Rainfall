@@ -1,0 +1,11 @@
+1.	gdb info functions -> main, v
+2.	use of fgets() in v() -> better protection from user input buffer overflow
+3.	but	shabby use of the function printf(). there is just a buf param as argument. So user can write whatever he wants. (format string vulnerability).
+4.	in the v(), if the value of variable m is equal to 64, it proceeds to system("/bin/sh") so we need to re-write the value of var m.
+5.	On launching of the executable, we try "AAAABBBBCCCC %p %p %p %p %p %p %p...".
+6.	As we didn't provide the correspondant arguments for format specifiers, the printf() function retrieves values for them from the stack.
+7.	We observe that after some 3 values, the 4th poped value is the same as the address of the string itself.
+8.	Using the %n format specifier which takes an address to write the total number of bytes written until that moment on it, it seems possible to modify the value of 'm' variable !
+9.	To do this, we give the address of this variable at the beginning of the string, and then some paddings with three other format specifiers followed by the fourth format specifier which is %n ! The important thing is that the total number of written character should be 64.
+10.	echo -e "[address of variable m]%032x%016x%012x%n" > /tmp/exp
+11. cat /tmp/exp - | ./level3

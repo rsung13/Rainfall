@@ -1,0 +1,6 @@
+1.	There is a binary ./level0 (it segfault on exec when there is no argument and print "No !" when given any argument)
+2.	We can disassemble this binary using gdb (set disassembly-flavor intel for intel syntax instead of AT&T)
+3.	Upon disas we can see all the functions that are utilised: atoi, strdup, getegid, geteguid, setresgid, setresguid! We now understand that it segfault on the atoi function when there is a NULL value that is passed on the function
+4.	We place breakpoint at the address where it compares the return value of atoi with $0x1a7 (423)
+5.	Now upon exec we'll give argument "423" and there is a 'prompt'
+6.	cat /home/user/level1/.pass

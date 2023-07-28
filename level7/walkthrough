@@ -1,0 +1,8 @@
+1.	The program takes two arguments and it strcpy() these arguments respectively.
+2.	With break points after malloc() calls, we can identify heap addresses.
+3.	The buffer for the second strcpy() call situates where it can be overwritten with the first strcpy() call.
+4.	There is a function 'm' which shows the password file
+5. 	To call this function, write the function's address to the place of the puts() function call just after the fgets() call.
+6.	To do this, we prepare the first argument to fill the 20 bytes until the point of address of the second buffer of strcpy(), and then we write the address of the puts() function.
+7.	At the time of the second call of strcpy(), the buffer now points to the puts() function, so we can overwrite it with the address of the function of our interest, m.
+8.	./level7 $(python -c 'print "a" * 20 + "[address of puts]"') $(python -c 'print "[address of m]"')
