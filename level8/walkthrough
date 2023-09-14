@@ -1,0 +1,6 @@
+1.	disas main
+2.	the program takes user input and executes simple routines in a loop.
+3.	at every beginning of the loop it prints addresses of variables 'auth' and 'service'
+4.	the program changes the value of these addresses whenever we type commands 'auth ' and 'service' using malloc().
+5.	with the disassembled main, we know that at the moment when the address of 'auth + 32' is not NULL, we get the prompt with system() call.
+6.	we just need to launch minimum once 'auth' and then two times of 'service' command.

@@ -1,0 +1,14 @@
+1.	disas main and re-write de code source
+2.	with info functions, we see that it is a c++ code with a class 'N'
+3.	the program creates two N class instances with new() and the class N takes an int as arg to constructor
+4.	the constructor copies the int arg into the [address + 104]
+5.	the setAnnotation() fuction copies av[1] to the buffer of N instance using memcpy(), where the possibility of manipulation resides
+6.	after the setAnnotation() call, the program looks into the first 4 bytes value of the second N instance, which we can overwrite with our argument
+7.	the program goes into this address and then it dereference once again to finally call this address
+8.	what we will do is to overwrite the first 4-byte value of the second N instance with the address of buffer of the first N instance,
+9.	and at the beginnig of the buffer, we write the very next address of this buffer, so that it can 'follow' the instructions on dereferencing.
+10.	from there we injet the shell code for 'execve("/bin/sh")' and then some paddings.
+11.	final payload looks like this:
+	[address of buffer address + 4][shellcode][padding][address of buffer]
+					4					28		76				4
+
